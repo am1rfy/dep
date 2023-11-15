@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import './style.css'
 import App from './App.vue'
 import router from './router'
@@ -12,6 +13,7 @@ import 'dayjs/locale/ru'
 dayjs.locale('ru')
 
 const app = createApp(App)
+const pinia = createPinia()
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue))
   app.component(key, component)
@@ -19,4 +21,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue))
 app
   .use(ElementPlus, { locale: ru })
   .use(router)
+  .use(pinia)
   .mount('#app')
