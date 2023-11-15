@@ -11,6 +11,16 @@ const routes = [
     name: 'lk',
     component: () => import('@/pages/LK.vue'),
   },
+  {
+    path: '/auth/',
+    name: 'auth',
+    component: () => import('@/pages/Auth.vue'),
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'notFound',
+    component: () => import('@/pages/NotFound.vue'),
+  },
 ]
 
 const router = createRouter({

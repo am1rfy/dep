@@ -53,6 +53,9 @@
           type="success"
           native-type="submit"
         >
+          <el-icon class="el-icon--left">
+            <Check />
+          </el-icon>
           Сохранить
         </el-button>
       </el-row>
