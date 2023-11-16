@@ -50,6 +50,16 @@
     <section>
       <el-row justify="end">
         <el-button
+          type="info"
+          @click="resetForm"
+        >
+          <el-icon class="el-icon--left">
+            <Refresh />
+          </el-icon>
+          Очистить
+        </el-button>
+
+        <el-button
           type="success"
           native-type="submit"
         >
@@ -64,21 +74,31 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
+import { useContractStore } from '@/stores'
 import { requiredRule, validate } from '@/utils/validation'
+import { deepClone } from '@/utils'
 
 const CONTRACT_TEMPLATE_URL = '/vite.svg'
 
 const emit = defineEmits(['submit'])
 
+const contractStore = useContractStore()
+
 const form = ref({})
 const formRef = ref({})
 
+const resetForm = () => {
+  form.value = {}
+}
+
 const onSubmit = async () => {
   const isFormValid = await validate(formRef.value)
+  if (!isFormValid)
+    return
 
-  if (isFormValid)
-    emit('submit', form.value)
+  contractStore.contractForm = deepClone(form.value)
+  emit('submit')
 }
 
 const onFilePreview = file => {
@@ -93,6 +113,11 @@ watchEffect(() => {
 
   if (isFileAttached)
     formRef.value.clearValidate()
+})
+
+onMounted(() => {
+  contractStore.load()
+  form.value = deepClone(contractStore.contractForm)
 })
 </script>
 

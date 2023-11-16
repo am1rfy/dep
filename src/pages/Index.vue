@@ -23,23 +23,34 @@
       </div>
     </template>
 
-    <component
-      :is="activeWidget.component"
-      @submit="onWidgetSubmit"
-    />
+    <keep-alive>
+      <component
+        :is="activeWidget.component"
+        @submit="onWidgetSubmit"
+      />
+    </keep-alive>
   </el-card>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useLoadingStore } from '@/stores/loading'
 import { ElNotification } from 'element-plus'
+
+import { useLoadingStore } from '@/stores'
+import { useUserStore } from '@/stores'
+import { useContractStore } from '@/stores'
+import { useDepositStore } from '@/stores'
+
 import UserInfoWidget from '@/components/UserInfo.vue'
 import ContractSignWidget from '@/components/ContractSign.vue'
 
 const router = useRouter()
 const { startLoading, stopLoading } = useLoadingStore()
+
+const userStore = useUserStore()
+const contractStore = useContractStore()
+const depositStore = useDepositStore()
 
 const USER_INFO_WIDGET_NAME = 'userInfo'
 const CONTRACT_SIGN_WIDGET_NAME = 'contractSign'
@@ -61,16 +72,22 @@ const activeWidget = computed(() => WIDGETS[activeWidgetName.value])
 const isWidgetActive = widgetName =>
   activeWidgetName.value === widgetName
 
-
-const onWidgetSubmit = formData => {
-  if (isWidgetActive(USER_INFO_WIDGET_NAME)) {
-    // TODO: сохранить в стор
-
-    goToContractSignWidget()
+const createDeposit = () => {
+  depositStore.deposit = {
+    balance: 0,
   }
 
+  userStore.save()
+  contractStore.save()
+  depositStore.save()
+}
+
+const onWidgetSubmit = () => {
+  if (isWidgetActive(USER_INFO_WIDGET_NAME))
+    goToContractSignWidget()
+
   else {
-    // TODO: сохранить в стор
+    createDeposit()
 
     ElNotification.success('Успешно')
 

@@ -110,6 +110,16 @@
     <section>
       <el-row justify="end">
         <el-button
+          type="info"
+          @click="resetForm"
+        >
+          <el-icon class="el-icon--left">
+            <Refresh />
+          </el-icon>
+          Очистить
+        </el-button>
+
+        <el-button
           type="success"
           native-type="submit"
         >
@@ -124,21 +134,36 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { mask as vMask } from 'vue-the-mask'
+import { useUserStore } from '@/stores'
 import { requiredRule, validate } from '@/utils/validation'
+import { deepClone } from '@/utils'
 
 const emit = defineEmits(['submit'])
+
+const userStore = useUserStore()
 
 const form = ref({})
 const formRef = ref({})
 
+const resetForm = () => {
+  form.value = {}
+}
+
 const onSubmit = async () => {
   const isFormValid = await validate(formRef.value)
+  if (!isFormValid)
+    return
 
-  if (isFormValid)
-    emit('submit', form.value)
+  userStore.userForm = deepClone(form.value)
+  emit('submit', form.value)
 }
+
+onMounted(() => {
+  userStore.load()
+  form.value = deepClone(userStore.userForm)
+})
 </script>
 
 <style scoped lang="scss">

@@ -21,7 +21,7 @@
     right: 0;
     z-index: -1;
     background-image: linear-gradient(to right top, #409eff, #00b3fd, #00c0d1, #00c58a, #67c23a);
-    opacity: 0.5;
+    opacity: 0.3;
   }
 }
 </style>

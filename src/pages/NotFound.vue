@@ -29,7 +29,5 @@ const goHome = () => {
 </script>
 
 <style scoped lang="scss">
-.el-empty__description {
-  color: white;
-}
+.el-empty__description {}
 </style>
