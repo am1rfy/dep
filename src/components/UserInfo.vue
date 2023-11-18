@@ -21,6 +21,7 @@
             <el-input
               v-model="form.fio"
               placeholder="Васильев Василий Васильевич"
+              disabled
             />
           </el-form-item>
         </el-col>

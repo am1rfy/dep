@@ -3,18 +3,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'index',
-    component: () => import('@/pages/Index.vue'),
+    name: 'home',
+    component: () => import('@/pages/Home.vue'),
   },
   {
-    path: '/lk/',
-    name: 'lk',
-    component: () => import('@/pages/LK.vue'),
-  },
-  {
-    path: '/auth/',
-    name: 'auth',
-    component: () => import('@/pages/Auth.vue'),
+    path: '/create_investment_deposit',
+    name: 'createInvestmentDeposit',
+    component: () => import('@/pages/CreateInvestmentDeposit.vue'),
   },
   {
     path: '/:catchAll(.*)',

@@ -38,9 +38,7 @@ import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 
 import { useLoadingStore } from '@/stores'
-import { useUserStore } from '@/stores'
-import { useContractStore } from '@/stores'
-import { useDepositStore } from '@/stores'
+import { useStore } from '@/stores'
 
 import UserInfoWidget from '@/components/UserInfo.vue'
 import ContractSignWidget from '@/components/ContractSign.vue'
@@ -48,9 +46,7 @@ import ContractSignWidget from '@/components/ContractSign.vue'
 const router = useRouter()
 const { startLoading, stopLoading } = useLoadingStore()
 
-const userStore = useUserStore()
-const contractStore = useContractStore()
-const depositStore = useDepositStore()
+const store = useStore()
 
 const USER_INFO_WIDGET_NAME = 'userInfo'
 const CONTRACT_SIGN_WIDGET_NAME = 'contractSign'
@@ -72,14 +68,9 @@ const activeWidget = computed(() => WIDGETS[activeWidgetName.value])
 const isWidgetActive = widgetName =>
   activeWidgetName.value === widgetName
 
-const createDeposit = () => {
-  depositStore.deposit = {
-    balance: 0,
-  }
-
-  userStore.save()
-  contractStore.save()
-  depositStore.save()
+const createInvestmentDeposit = () => {
+  store.account.investment_balance = 0
+  store.account.savings_balance = 0
 }
 
 const onWidgetSubmit = () => {
@@ -87,7 +78,7 @@ const onWidgetSubmit = () => {
     goToContractSignWidget()
 
   else {
-    createDeposit()
+    createInvestmentDeposit()
 
     ElNotification.success('Успешно')
 
@@ -95,7 +86,7 @@ const onWidgetSubmit = () => {
       startLoading()
       setTimeout(() => {
         stopLoading()
-        router.push({ name: 'lk' })
+        router.push({ name: 'index' })
       }, 3000)
     }, 1500)
   }
@@ -114,7 +105,7 @@ const goToContractSignWidget = () => {
 .widget-card {
   min-width: 638px;
 
-  &__header {
+  :deep(&__header) {
     display: flex;
     align-items: center;
     gap: 18px;

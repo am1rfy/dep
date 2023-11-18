@@ -1,9 +1,9 @@
 <template>
   <el-dialog
     :model-value="modelValue"
-    modal-class="deposit-modal"
+    modal-class="balance-increase-modal"
     title="Пополнение"
-    width="20%"
+    width="30%"
     @closed="closeModal"
   >
     <el-form
@@ -14,10 +14,10 @@
     >
       <el-form-item
         label="Основной счет"
-        prop="balance"
+        prop="cost"
       >
         <el-input
-          v-model.number="form.balance"
+          v-model.number="form.cost"
         />
       </el-form-item>
     </el-form>
@@ -55,9 +55,11 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'submit'])
 
 const form = ref({})
+const formRef = ref({})
 
 const onSubmit = () => {
   emit('submit', form.value)
+  formRef.value.resetFields()
   closeModal()
 }
 
@@ -67,7 +69,7 @@ const closeModal = () => {
 </script>
 
 <style scoped lang="scss">
-.deposit-modal:deep(.el-dialog__body) {
+.balance-increase-modal:deep(.el-dialog__body) {
   padding: var(--el-dialog-padding-primary);
 }
 </style>
