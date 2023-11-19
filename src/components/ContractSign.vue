@@ -75,7 +75,7 @@
 
 <script setup>
 import { ref, onMounted, watchEffect } from 'vue'
-import { useContractStore } from '@/stores'
+import { useStore } from '@/stores'
 import { requiredRule, validate } from '@/utils/validation'
 import { deepClone } from '@/utils'
 
@@ -83,7 +83,7 @@ const CONTRACT_TEMPLATE_URL = '/vite.svg'
 
 const emit = defineEmits(['submit'])
 
-const contractStore = useContractStore()
+const store = useStore()
 
 const form = ref({})
 const formRef = ref({})
@@ -97,7 +97,7 @@ const onSubmit = async () => {
   if (!isFormValid)
     return
 
-  contractStore.contractForm = deepClone(form.value)
+  store.account.investment_balance_info.contract = deepClone(form.value.contract)
   emit('submit')
 }
 
@@ -116,8 +116,9 @@ watchEffect(() => {
 })
 
 onMounted(() => {
-  contractStore.load()
-  form.value = deepClone(contractStore.contractForm)
+  form.value.contract = deepClone(
+    store.account.investment_balance_info.contract ?? []
+  )
 })
 </script>
 

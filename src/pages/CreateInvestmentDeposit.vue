@@ -86,7 +86,7 @@ const onWidgetSubmit = () => {
       startLoading()
       setTimeout(() => {
         stopLoading()
-        router.push({ name: 'index' })
+        router.push({ name: 'home' })
       }, 3000)
     }, 1500)
   }
@@ -105,7 +105,9 @@ const goToContractSignWidget = () => {
 .widget-card {
   min-width: 638px;
 
-  :deep(&__header) {
+  $root: &;
+
+  :deep(#{$root}__header) {
     display: flex;
     align-items: center;
     gap: 18px;

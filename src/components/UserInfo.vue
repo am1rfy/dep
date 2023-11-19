@@ -137,13 +137,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { mask as vMask } from 'vue-the-mask'
-import { useUserStore } from '@/stores'
+import { useStore } from '@/stores'
 import { requiredRule, validate } from '@/utils/validation'
 import { deepClone } from '@/utils'
 
 const emit = defineEmits(['submit'])
 
-const userStore = useUserStore()
+const store = useStore()
 
 const form = ref({})
 const formRef = ref({})
@@ -157,13 +157,12 @@ const onSubmit = async () => {
   if (!isFormValid)
     return
 
-  userStore.userForm = deepClone(form.value)
+  store.account.investment_balance_info = deepClone(form.value)
   emit('submit', form.value)
 }
 
 onMounted(() => {
-  userStore.load()
-  form.value = deepClone(userStore.userForm)
+  form.value.fio = store.account.fio
 })
 </script>
 

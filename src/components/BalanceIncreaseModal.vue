@@ -69,7 +69,5 @@ const closeModal = () => {
 </script>
 
 <style scoped lang="scss">
-.balance-increase-modal:deep(.el-dialog__body) {
-  padding: var(--el-dialog-padding-primary);
-}
+
 </style>

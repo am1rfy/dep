@@ -43,7 +43,7 @@ const goToCreatingInvestmentDeposit = () => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header__primary {
   display: flex;
   align-items: center;

@@ -62,7 +62,11 @@ const transactionHistory = computed(() => store.account.transaction_history)
 
 const truncatedTransactionHistory = computed(
   () => transactionHistory.value
-    .slice(transactionHistory.value.length - 3)
+    .slice(
+      transactionHistory.value.length > 3
+        ? transactionHistory.value.length - 3
+        : 0
+    )
     .reverse()
     .map(
       item => ({
