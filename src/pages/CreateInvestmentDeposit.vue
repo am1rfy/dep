@@ -4,18 +4,10 @@
   >
     <template #header>
       <div class="widget-card__header">
-        <el-tooltip
+        <ButtonBack
           v-if="isWidgetActive(CONTRACT_SIGN_WIDGET_NAME)"
-          content="Назад"
-          placement="top"
-        >
-          <el-button
-            icon="ArrowLeft"
-            type="primary"
-            size="small"
-            @click="goToUserInfoWidget"
-          />
-        </el-tooltip>
+          @click="goToUserInfoWidget"
+        />
 
         <h2>
           {{ activeWidget.label }}
@@ -40,6 +32,7 @@ import { ElNotification } from 'element-plus'
 import { useLoadingStore } from '@/stores'
 import { useStore } from '@/stores'
 
+import ButtonBack from '@/components/ButtonBack.vue'
 import UserInfoWidget from '@/components/UserInfo.vue'
 import ContractSignWidget from '@/components/ContractSign.vue'
 
@@ -105,9 +98,7 @@ const goToContractSignWidget = () => {
 .widget-card {
   min-width: 638px;
 
-  $root: &;
-
-  :deep(#{$root}__header) {
+  &__header {
     display: flex;
     align-items: center;
     gap: 18px;

@@ -12,6 +12,11 @@ const routes = [
     component: () => import('@/pages/CreateInvestmentDeposit.vue'),
   },
   {
+    path: '/payment',
+    name: 'payment',
+    component: () => import('@/pages/Payment.vue'),
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'notFound',
     component: () => import('@/pages/NotFound.vue'),

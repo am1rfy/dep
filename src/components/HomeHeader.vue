@@ -15,6 +15,7 @@
     </div>
 
     <el-tooltip
+      v-if="!isInvestmentBalanceExist"
       content="Открыть вклад"
       placement="top"
     >
@@ -37,6 +38,12 @@ const router = useRouter()
 const store = useStore()
 
 const userFio = computed(() => store.account.fio)
+
+const isInvestmentBalanceExist = computed(
+  () => Boolean(
+    Object.keys(store.account.investment_balance_info ?? {}).length
+  )
+)
 
 const goToCreatingInvestmentDeposit = () => {
   router.push({ name: 'createInvestmentDeposit' })

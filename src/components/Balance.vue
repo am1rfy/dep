@@ -48,11 +48,13 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from '@/stores'
 import BalanceIncreaseModal from '@/components/BalanceIncreaseModal.vue'
 
 const BALANCE_LABEL = 'Баланс - Основной счет'
 
+const router = useRouter()
 const store = useStore()
 
 const isBalanceIncreaseModalVisible = ref(false)
@@ -76,7 +78,7 @@ const openBalanceIncreaseModal = () => {
 }
 
 const goToPaymentPage = () => {
-
+  router.push({ name: 'payment' })
 }
 </script>
 

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 import * as init from '@/data/init.json'
 import { BASE_DEPOSIT_RATE } from '@/consts'
