@@ -30,7 +30,7 @@
 
       <el-col :span="24">
         <el-button
-          type="primary"
+          type="success"
           @click="openBalanceIncreaseModal"
         >
           <el-icon class="el-icon--left"><Plus /></el-icon>
@@ -69,7 +69,7 @@ const increaseBalance = form => {
     label: BALANCE_LABEL,
     date: new Date(),
     cost: form.cost,
-    tagType: 'success',
+    paymentLabel: 'Пополнение',
   })
 }
 

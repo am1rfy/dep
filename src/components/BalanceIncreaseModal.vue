@@ -9,12 +9,14 @@
     <el-form
       ref="formRef"
       label-position="top"
+      require-asterisk-position="right"
       :model="form"
       @submit.prevent="onSubmit"
     >
       <el-form-item
         label="Основной счет"
         prop="cost"
+        :rules="[requiredRule()]"
       >
         <el-input
           v-model.number="form.cost"
@@ -44,6 +46,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { requiredRule, validate } from '@/utils/validation'
 
 const props = defineProps({
   modelValue: {
@@ -57,7 +60,11 @@ const emit = defineEmits(['update:modelValue', 'submit'])
 const form = ref({})
 const formRef = ref({})
 
-const onSubmit = () => {
+const onSubmit = async () => {
+  const isValid = await validate(formRef.value)
+  if (!isValid)
+    return
+  
   emit('submit', form.value)
   formRef.value.resetFields()
   closeModal()

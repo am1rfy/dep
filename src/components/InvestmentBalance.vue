@@ -30,23 +30,18 @@
 
     <el-row class="balance__footer">
       <el-col :span="24">
-        <el-tooltip
-          placement="top"
-          content="Перевести на другие счета"
+        <el-button
+          type="primary"
+          @click="goToPaymentPage"
         >
-          <el-button
-            type="primary"
-            @click="transferBalance"
-          >
-            <el-icon class="el-icon--left"><Money /></el-icon>
-            Перевести
-          </el-button>       
-        </el-tooltip>
+          <el-icon class="el-icon--left"><Money /></el-icon>
+          Оплатить
+        </el-button>
       </el-col>
 
       <el-col :span="24">
         <el-button
-          type="primary"
+          type="success"
           @click="openBalanceIncreaseModal"
         >
           <el-icon class="el-icon--left"><Plus /></el-icon>
@@ -64,11 +59,13 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from '@/stores'
 import BalanceIncreaseModal from '@/components/BalanceIncreaseModal.vue'
 
 const INVESTMENT_BALANCE_LABEL = 'Вклад - Основной счет'
 
+const router = useRouter()
 const store = useStore()
 
 const isBalanceIncreaseModalVisible = ref(false)
@@ -85,6 +82,7 @@ const increaseBalance = form => {
     date: new Date(),
     cost: form.cost,
     tagType: 'success',
+    paymentLabel: 'Пополнение',
   })
 }
 
@@ -92,8 +90,8 @@ const openBalanceIncreaseModal = () => {
   isBalanceIncreaseModalVisible.value = true
 }
 
-const transferBalance = () => {
-
+const goToPaymentPage = () => {
+  router.push({ name: 'payment' })
 }
 </script>
 

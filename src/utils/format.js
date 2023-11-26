@@ -8,5 +8,3 @@ export const getTimeOfDate = date =>
 export const formatDateToRu = date =>
   ruFormatter.format(new Date(date)) + ' ' + getTimeOfDate(new Date(date))
 
-export const formatCost = cost =>
-  `${cost > 0 ? '+' : '-' }${cost}`

@@ -47,36 +47,41 @@
       v-else
     />
   </el-card>
+
+  <TransactionHistoryModal
+    v-model="isTransactionHistoryModalVisible"
+    :items="transactionHistory"
+  />
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores'
-import { formatDateToRu, formatCost } from '@/utils/format'
+import { formatDateToRu } from '@/utils/format'
+
+import TransactionHistoryModal from '@/components/TransactionHistoryModal.vue'
 
 const store = useStore()
 
 const isTransactionHistoryModalVisible = ref(false)
 
-const transactionHistory = computed(() => store.account.transaction_history)
-
-const truncatedTransactionHistory = computed(
-  () => transactionHistory.value
-    .slice(
-      transactionHistory.value.length > 3
-        ? transactionHistory.value.length - 3
-        : 0
-    )
+const transactionHistory = computed(
+  () => [...store.account.transaction_history]
     .reverse()
     .map(
       item => ({
         id: item.id,
         label: item.label,
         date: formatDateToRu(item.date),
-        cost: formatCost(item.cost),
-        tagType: item.cost > 0 ? 'success' : 'danger'
+        cost: `${item.cost > 0 ? '+' : ''} ${item.cost} руб.`,
+        tagType: item.cost > 0 ? 'success' : 'danger',
+        paymentLabel: item.paymentLabel,
       })
     )
+)
+
+const truncatedTransactionHistory = computed(
+  () => transactionHistory.value.slice(0, 3)
 )
 
 const openTransactionHistoryModal = () => {

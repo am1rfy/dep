@@ -23,22 +23,69 @@
         :key="item"
         :span="12"
       >
-        <el-card class="payments-list__item">
-          {{ item }}
+        <el-card
+          @click="openPaymentModal(item)"
+          class="payments-list__item"
+        >
+          {{ item.name }}
         </el-card>
       </el-col>
     </el-row>
   </el-card>
+
+  <PaymentModal
+    v-model="isPaymentModalVisible"
+    :payment="currentPayment"
+    @submit="onPaymentFormSubmit"
+  />
 </template>
 
 <script setup>
-import ButtonBack from '@/components/ButtonBack.vue'
-import * as payment from '@/data/payment.json'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from '@/stores'
+import { deepClone } from '@/utils'
+import * as payment from '@/data/payment.json'
+
+import PaymentModal from '@/components/PaymentModal.vue'
+import ButtonBack from '@/components/ButtonBack.vue'
 
 const router = useRouter()
+const store = useStore()
+
+const isPaymentModalVisible = ref(false)
+const currentPayment = ref({})
 
 const payments = payment.default.payments
+
+const onPaymentFormSubmit = form => {
+  switch (form.balanceAccount) {
+    case 'primary_balance':
+      store.account.primary_balance -= form.cost
+      break
+    case 'investment_balance':
+      store.account.investment_balance -= form.cost
+      break
+    case 'savings_balance':
+      store.account.savings_balance -= form.cost
+      break
+    default:
+      return
+  }
+
+  store.addTransaction({
+    id: Date.now(),
+    label: form.label,
+    date: new Date(),
+    cost: `- ${form.cost}`,
+    paymentLabel: form.paymentLabel,
+  })
+}
+
+const openPaymentModal = payment => {
+  currentPayment.value = deepClone(payment)
+  isPaymentModalVisible.value = true
+}
 
 const goToHomePage = () => {
   router.push({ name: 'home' })

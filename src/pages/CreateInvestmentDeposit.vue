@@ -5,8 +5,7 @@
     <template #header>
       <div class="widget-card__header">
         <ButtonBack
-          v-if="isWidgetActive(CONTRACT_SIGN_WIDGET_NAME)"
-          @click="goToUserInfoWidget"
+          @click="goBack"
         />
 
         <h2>
@@ -85,8 +84,11 @@ const onWidgetSubmit = () => {
   }
 }
 
-const goToUserInfoWidget = () => {
-  activeWidgetName.value = USER_INFO_WIDGET_NAME
+const goBack = () => {
+  if (isWidgetActive(CONTRACT_SIGN_WIDGET_NAME))
+    activeWidgetName.value = USER_INFO_WIDGET_NAME
+  else
+    router.push({ name: 'home' })
 }
 
 const goToContractSignWidget = () => {
