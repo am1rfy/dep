@@ -1,9 +1,7 @@
 <template>
   <el-card class="transaction-history">
     <template #header>
-      <h3>
-        Последние операции
-      </h3>
+      <h3>Последние операции</h3>
     </template>
 
     <div
@@ -65,24 +63,18 @@ const store = useStore()
 
 const isTransactionHistoryModalVisible = ref(false)
 
-const transactionHistory = computed(
-  () => [...store.account.transaction_history]
-    .reverse()
-    .map(
-      item => ({
-        id: item.id,
-        label: item.label,
-        date: formatDateToRu(item.date),
-        cost: `${item.cost > 0 ? '+' : ''} ${item.cost} руб.`,
-        tagType: item.cost > 0 ? 'success' : 'danger',
-        paymentLabel: item.paymentLabel,
-      })
-    )
+const transactionHistory = computed(() =>
+  [...store.account.transaction_history].reverse().map((item) => ({
+    id: item.id,
+    label: item.label,
+    date: formatDateToRu(item.date),
+    cost: `${item.cost > 0 ? '+' : ''} ${item.cost} руб.`,
+    tagType: item.cost > 0 ? 'success' : 'danger',
+    paymentLabel: item.paymentLabel
+  }))
 )
 
-const truncatedTransactionHistory = computed(
-  () => transactionHistory.value.slice(0, 3)
-)
+const truncatedTransactionHistory = computed(() => transactionHistory.value.slice(0, 3))
 
 const openTransactionHistoryModal = () => {
   isTransactionHistoryModalVisible.value = true
@@ -103,7 +95,7 @@ const openTransactionHistoryModal = () => {
     height: fit-content;
     border: none;
     box-shadow: var(--el-box-shadow-lighter);
-    
+
     &:hover {
       box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.24);
     }
@@ -129,7 +121,7 @@ const openTransactionHistoryModal = () => {
     left: 20px;
     right: 20px;
     bottom: 20px;
-    
+
     .el-button {
       width: 100%;
     }

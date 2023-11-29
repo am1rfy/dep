@@ -22,9 +22,7 @@
     </section>
 
     <section class="section">
-      <h3 class="section__header">
-        2. Прикрепите подписанный договор
-      </h3>
+      <h3 class="section__header">2. Прикрепите подписанный договор</h3>
 
       <el-form-item
         prop="contract"
@@ -94,31 +92,25 @@ const resetForm = () => {
 
 const onSubmit = async () => {
   const isFormValid = await validate(formRef.value)
-  if (!isFormValid)
-    return
+  if (!isFormValid) return
 
   store.account.investment_balance_info.contract = deepClone(form.value.contract)
   emit('submit')
 }
 
-const onFilePreview = file => {
-  const url = URL.createObjectURL(
-    new Blob([file.raw], { type: file.raw.type })
-  )
+const onFilePreview = (file) => {
+  const url = URL.createObjectURL(new Blob([file.raw], { type: file.raw.type }))
   window.open(url, '_blank')
 }
 
 watchEffect(() => {
   const isFileAttached = form.value.contract?.length
 
-  if (isFileAttached)
-    formRef.value.clearValidate()
+  if (isFileAttached) formRef.value.clearValidate()
 })
 
 onMounted(() => {
-  form.value.contract = deepClone(
-    store.account.investment_balance_info.contract ?? []
-  )
+  form.value.contract = deepClone(store.account.investment_balance_info.contract ?? [])
 })
 </script>
 

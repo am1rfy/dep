@@ -1,31 +1,30 @@
 export const requiredRule = () => ({
-	required: true,
-	message: 'Обязательное поле',
-	trigger: 'change',
+  required: true,
+  message: 'Обязательное поле',
+  trigger: 'change'
 })
 
+export const validate = async (form) => {
+  let isValid
 
-export const validate = async form => {
-	let isValid
+  try {
+    await form.validate()
+    isValid = true
+  } catch (e) {
+    isValid = false
+  }
 
-	try {
-		await form.validate()
-		isValid = true
-	} catch (e) {
-		isValid = false
-	}
-
-	return isValid
+  return isValid
 }
 
-const lengthValidator = length => (rule, value, callback) => {
-	if (value.split(' ').join('').length < length)
-		callback(new Error('Некорректное значение'))
+const lengthValidator = (length) => (rule, value, callback) => {
+  if (value.split(' ').join('').length < length)
+    callback(new Error('Некорректное значение'))
 
-	callback()
+  callback()
 }
 
-export const lengthRule = length => ({
-	validator: lengthValidator(length),
-	trigger: 'change',
+export const lengthRule = (length) => ({
+  validator: lengthValidator(length),
+  trigger: 'change'
 })

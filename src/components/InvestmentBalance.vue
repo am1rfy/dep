@@ -1,30 +1,20 @@
 <template>
   <el-card class="balance">
     <template #header>
-      <h3>
-        Вклад
-      </h3>
+      <h3>Вклад</h3>
     </template>
 
     <el-row class="balance__body">
       <el-col :span="24">
-        <el-text size="large">
-          Основной счет
-        </el-text>
-        <h1>
-          {{ investmentBalance }} ₽
-        </h1>
+        <el-text size="large"> Основной счет </el-text>
+        <h1>{{ investmentBalance }} ₽</h1>
       </el-col>
     </el-row>
 
     <el-row class="balance__body">
       <el-col :span="24">
-        <el-text size="large">
-          Накопительный счет
-        </el-text>
-        <h1>
-          {{ savingsBalance }} ₽
-        </h1>
+        <el-text size="large"> Накопительный счет </el-text>
+        <h1>{{ savingsBalance }} ₽</h1>
       </el-col>
     </el-row>
 
@@ -73,7 +63,7 @@ const isBalanceIncreaseModalVisible = ref(false)
 const investmentBalance = computed(() => store.account.investment_balance)
 const savingsBalance = computed(() => store.account.savings_balance)
 
-const increaseBalance = form => {
+const increaseBalance = (form) => {
   store.changeInvestmentBalance(form.cost)
 
   store.addTransaction({
@@ -82,7 +72,7 @@ const increaseBalance = form => {
     date: new Date(),
     cost: form.cost,
     tagType: 'success',
-    paymentLabel: 'Пополнение',
+    paymentLabel: 'Пополнение'
   })
 }
 
@@ -121,7 +111,7 @@ const goToPaymentPage = () => {
     left: 20px;
     right: 20px;
     bottom: 20px;
-    
+
     .el-button {
       width: 100%;
     }

@@ -6,7 +6,7 @@ export const useLoadingStore = defineStore('loadingStore', () => {
   const loading = ref(null)
 
   const isLoadingOn = computed(() => loading.value?.visible)
-  
+
   const startLoading = () => {
     loading.value = ElLoading.service({
       lock: true,
@@ -15,14 +15,13 @@ export const useLoadingStore = defineStore('loadingStore', () => {
   }
 
   const stopLoading = () => {
-    if (loading.value)
-      loading.value.close()
+    if (loading.value) loading.value.close()
   }
 
   return {
     loading,
     isLoadingOn,
     startLoading,
-    stopLoading,
+    stopLoading
   }
 })

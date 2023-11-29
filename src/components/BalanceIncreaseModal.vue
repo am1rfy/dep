@@ -58,7 +58,6 @@
         </el-col>
       </el-row>
 
-
       <el-row :gutter="10">
         <el-col>
           <el-form-item
@@ -77,11 +76,7 @@
 
     <template #footer>
       <span class="dialog-footer">
-        <el-button
-          @click="closeModal"
-        >
-          Отмена
-        </el-button>
+        <el-button @click="closeModal"> Отмена </el-button>
 
         <el-button
           type="primary"
@@ -104,7 +99,7 @@ import { onlyNumbersFormatter } from '@/utils/format'
 const props = defineProps({
   modelValue: {
     type: Boolean,
-    required: true,
+    required: true
   }
 })
 
@@ -115,9 +110,8 @@ const formRef = ref({})
 
 const onSubmit = async () => {
   const isValid = await validate(formRef.value)
-  if (!isValid)
-    return
-  
+  if (!isValid) return
+
   emit('submit', form.value)
   formRef.value.resetFields()
   closeModal()
@@ -128,6 +122,4 @@ const closeModal = () => {
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

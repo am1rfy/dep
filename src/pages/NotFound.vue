@@ -1,9 +1,7 @@
 <template>
   <el-empty>
     <template #description>
-      <h1 class="el-empty__description">
-        404
-      </h1>
+      <h1 class="el-empty__description">404</h1>
     </template>
 
     <el-button
@@ -29,5 +27,6 @@ const goHome = () => {
 </script>
 
 <style scoped lang="scss">
-.el-empty__description {}
+.el-empty__description {
+}
 </style>

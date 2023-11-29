@@ -25,11 +25,7 @@
 
     <template #footer>
       <span class="dialog-footer">
-        <el-button
-          @click="closeModal"
-        >
-          Отмена
-        </el-button>
+        <el-button @click="closeModal"> Отмена </el-button>
 
         <el-button
           type="primary"
@@ -50,7 +46,7 @@ import { onlyNumbersFormatter } from '@/utils/format'
 const props = defineProps({
   modelValue: {
     type: Boolean,
-    required: true,
+    required: true
   }
 })
 
@@ -70,6 +66,4 @@ const closeModal = () => {
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

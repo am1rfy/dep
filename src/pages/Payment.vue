@@ -1,16 +1,10 @@
 <template>
-  <el-card
-    class="widget-card"
-  >
+  <el-card class="widget-card">
     <template #header>
       <div class="widget-card__header">
-        <ButtonBack
-          @click="goToHomePage"
-        />
+        <ButtonBack @click="goToHomePage" />
 
-        <h2>
-          Доступные платежи
-        </h2>
+        <h2>Доступные платежи</h2>
       </div>
     </template>
 
@@ -58,7 +52,7 @@ const currentPayment = ref({})
 
 const payments = payment.default.payments
 
-const onPaymentFormSubmit = form => {
+const onPaymentFormSubmit = (form) => {
   switch (form.balanceAccount) {
     case 'primary_balance':
       store.account.primary_balance -= form.cost
@@ -78,11 +72,11 @@ const onPaymentFormSubmit = form => {
     label: form.label,
     date: new Date(),
     cost: `- ${form.cost}`,
-    paymentLabel: form.paymentLabel,
+    paymentLabel: form.paymentLabel
   })
 }
 
-const openPaymentModal = payment => {
+const openPaymentModal = (payment) => {
   currentPayment.value = deepClone(payment)
   isPaymentModalVisible.value = true
 }
@@ -109,10 +103,10 @@ const goToHomePage = () => {
     border: none;
     box-shadow: var(--el-box-shadow-lighter);
 
-    &:nth-last-child(-n+2) {
+    &:nth-last-child(-n + 2) {
       margin-bottom: 10px;
     }
-    
+
     &:hover {
       box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.24);
     }

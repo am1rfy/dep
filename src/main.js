@@ -18,8 +18,4 @@ const pinia = createPinia()
 for (const [key, component] of Object.entries(ElementPlusIconsVue))
   app.component(key, component)
 
-app
-  .use(ElementPlus, { locale: ru })
-  .use(router)
-  .use(pinia)
-  .mount('#app')
+app.use(ElementPlus, { locale: ru }).use(router).use(pinia).mount('#app')
