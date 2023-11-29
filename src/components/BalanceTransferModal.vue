@@ -13,11 +13,12 @@
       @submit.prevent="onSubmit"
     >
       <el-form-item
-        label="Основной счет"
+        label="Сумма"
         prop="cost"
       >
         <el-input
           v-model.number="form.cost"
+          :formatter="onlyNumbersFormatter"
         />
       </el-form-item>
     </el-form>
@@ -44,6 +45,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { onlyNumbersFormatter } from '@/utils/format'
 
 const props = defineProps({
   modelValue: {

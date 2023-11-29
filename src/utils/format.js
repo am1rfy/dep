@@ -8,3 +8,7 @@ export const getTimeOfDate = date =>
 export const formatDateToRu = date =>
   ruFormatter.format(new Date(date)) + ' ' + getTimeOfDate(new Date(date))
 
+export const onlyNumbersFormatter = str => str
+  .split('')
+  .filter(char => !Number.isNaN(Number(char)))
+  .join('')

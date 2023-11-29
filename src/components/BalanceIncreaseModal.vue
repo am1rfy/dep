@@ -13,15 +13,66 @@
       :model="form"
       @submit.prevent="onSubmit"
     >
-      <el-form-item
-        label="Основной счет"
-        prop="cost"
-        :rules="[requiredRule()]"
-      >
-        <el-input
-          v-model.number="form.cost"
-        />
-      </el-form-item>
+      <el-row :gutter="10">
+        <el-col>
+          <el-form-item
+            label="Номер карты"
+            prop="card_number"
+            :rules="[requiredRule(), lengthRule(16)]"
+          >
+            <el-input
+              v-model="form.card_number"
+              v-mask="'#### #### #### ####'"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="10">
+        <el-col :span="12">
+          <el-form-item
+            label="Срок действия"
+            prop="expiration_date"
+            :rules="[requiredRule(), lengthRule(5)]"
+          >
+            <el-input
+              v-model="form.expiration_date"
+              v-mask="'##/##'"
+            />
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item
+            label="CVV"
+            prop="cvv"
+            :rules="[requiredRule(), lengthRule(3)]"
+          >
+            <el-input
+              v-model="form.cvv"
+              v-mask="'###'"
+              type="password"
+              show-password
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+
+      <el-row :gutter="10">
+        <el-col>
+          <el-form-item
+            label="Сумма"
+            prop="cost"
+            :rules="[requiredRule()]"
+          >
+            <el-input
+              v-model.number="form.cost"
+              :formatter="onlyNumbersFormatter"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
 
     <template #footer>
@@ -46,7 +97,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import { requiredRule, validate } from '@/utils/validation'
+import { mask as vMask } from 'vue-the-mask'
+import { requiredRule, lengthRule, validate } from '@/utils/validation'
+import { onlyNumbersFormatter } from '@/utils/format'
 
 const props = defineProps({
   modelValue: {

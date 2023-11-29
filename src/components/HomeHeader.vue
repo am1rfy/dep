@@ -1,32 +1,17 @@
 <template>
-  <el-row
-    justify="space-between"
-    class="header"
-  >
-    <div class="header__primary">
-      <el-avatar
-        icon="Avatar"
-        :size="30"
-      />
+	<el-row justify="space-between" class="header">
+		<div class="header__primary">
+			<el-avatar icon="Avatar" :size="30" />
 
-      <h2>
-        {{ userFio }}
-      </h2>
-    </div>
+			<h2>
+				{{ userFio }}
+			</h2>
+		</div>
 
-    <el-tooltip
-      v-if="!isInvestmentBalanceExist"
-      content="Открыть вклад"
-      placement="top"
-    >
-      <el-button
-        @click="goToCreatingInvestmentDeposit"
-        type="primary"
-        icon="unlock"
-        circle
-      />
-    </el-tooltip>
-  </el-row>
+		<el-button @click="goToCreatingInvestmentDeposit" type="primary">
+			Открыть вклад
+		</el-button>
+	</el-row>
 </template>
 
 <script setup>
@@ -40,20 +25,20 @@ const store = useStore()
 const userFio = computed(() => store.account.fio)
 
 const isInvestmentBalanceExist = computed(
-  () => Boolean(
-    Object.keys(store.account.investment_balance_info ?? {}).length
-  )
+	() => Boolean(
+		Object.keys(store.account.investment_balance_info ?? {}).length
+	)
 )
 
 const goToCreatingInvestmentDeposit = () => {
-  router.push({ name: 'createInvestmentDeposit' })
+	router.push({ name: 'createInvestmentDeposit' })
 }
 </script>
 
 <style scoped lang="scss">
 .header__primary {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+	display: flex;
+	align-items: center;
+	gap: 18px;
 }
 </style>
